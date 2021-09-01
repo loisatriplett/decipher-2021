@@ -2,196 +2,204 @@
 
 <note>These questions are meant to act only as placeholders for the purpose of practicing the required survey programming</note>
 
-  <survey name="Survey"
-    allowDupe="0"
-    alt=""
-    autoRecover="1"
-    autosave="1"
-    builder:wizardCompleted="1"
-    builderCompatible="1"
-    compat="120"
-    closed="0"
-    extraVariables="source,list,url,record,ipAddress,decLang,userAgent"
-    html:showNumber="0"
-    mobile="compat"
-    mobileDevices="mobile,smartphone,tablet,featurephone"
-    name="Loco Pops Satisfaction Survey"
-    save="dev"
-    secure="0"
-    setup="term,decLang,quota,time"
-    ss:disableBackButton="1"
-    ss:hideProgressBar="0"
-    state="dev"
-    trackVars="term">
+<survey name="Survey"
+  allowDupe="0"
+  alt=""
+  autoRecover="1"
+  autosave="1"
+  builder:wizardCompleted="1"
+  builderCompatible="1"
+  compat="120"
+  closed="0"
+  extraVariables="source,list,url,record,ipAddress,decLang,userAgent"
+  html:showNumber="0"
+  mobile="compat"
+  mobileDevices="mobile,smartphone,tablet,featurephone"
+  name="Loco Pops Satisfaction Survey"
+  save="dev"
+  secure="0"
+  setup="term,decLang,quota,time"
+  ss:disableBackButton="1"
+  ss:hideProgressBar="0"
+  state="dev"
+  trackVars="term">
 
-    <samplesources default="0">
-      <samplesource list="0" title="default">
-        
-        <html label="Introduction" where="survey">
-          <p class="large-font">Thank you for taking the time to complete our survey!</p>
-          <p>Please click "Continue" to proceed through the survey.</p>
-        </html>
+  <samplesources default="0">
+    <samplesource list="0" title="default">
+      
+      <html label="introduction" where="survey">
+        <p>Thank you for taking the time to complete our survey!</p>
+        <p>Please click "Continue" below.</p>
+      </html>
+      <suspend/>
+
+      <radio label="S1" optional="0">
+        <title>Are you located in the RDU area of North Carolina?</title>
+        <row label="r1" alt="yes">Yes</row>
+        <row label="r2" alt="no">No</row>
+      </radio>
+      <suspend/>
+
+      <term cond="S1.r2" incidence="0">S1: Selected “No" for RDU location</term>
+
+      <radio label="S2" optional="0">
+        <title>Please select the city closest to you:</title>
+        <row label="r1" alt="raleigh">Raleigh</row>
+        <row label="r2" alt="durham">Durham</row>
+        <row label="r3" alt="chapel_hill">Chapel Hill</row>
+      </radio>
+      <suspend/>
+
+      <radio label="Q1" optional="0">
+        <title>When was the last time you purchased a Loco Pop?</title>
+        <row label="r1" alt="never">Never</row>
+        <row label="r2" alt="over_12">Over 1 Year Ago</row>
+        <row label="r3" alt="1_6">1 year - 6 Months Ago</row>
+        <row label="r4" alt="less_6">Less than 6 Months Ago</row>
+      </radio>
+      <suspend/>
+
+      <block label="neverReDirect" cond="Q1.r1">
+        <radio label="E1" shuffle="rows" optional="0">
+          <title>Have you ever heard of Loco Pops before?</title>
+          <row label="r1" alt="0">No</row>
+          <row label="r2" alt="1">Yes</row>
+        </radio>
+        <finish />
         <suspend/>
+      </block>
 
-        <radio label="S1" optional="0">
-          <title>Are you located in the RDU area of North Carolina?</title>
-          <row label="r1" alt="yes">Yes</row>
-          <row label="r2" alt="no">No</row>
+      <radio label="Q2" optional="0">
+        <title>Where did you purchase your last Loco Pop?</title>
+        <row label="r1" alt="locopop">A Loco Pop Store</row>
+        <row label="r2" alt="retail">A Retail Outlet Selling Loco Pops</row>
+        <row label="r3" alt="neither">Neither</row>
+        <row label="r4" alt="unknown">I Don't Remember</row>
+      </radio>
+      <suspend/>
+
+      <block label="locoPopLocation" cond="Q2.r1">
+        <radio label="Q3a" optional="0">
+          <title>Which Loco Pop location did you visit?</title>
+          <row label="r1" alt="locopop_a">Location A</row>
+          <row label="r2" alt="locopop_b">Location B</row>
+          <row label="r3" alt="locopop_c">Location C</row>
+          <noanswer label="n1" alt="locopop_none">None of the Above</noanswer>
+          <noanswer label="n2" alt="locopop_unknown">I Don't Remember</noanswer>
         </radio>
         <suspend/>
+      </block>
 
-        <term cond="S1.r2" incidence="0">S1: Selected “No" for RDU location</term>
-
-        <radio label="Q1" optional="0">
-          <title>When was the last time you purchased a Loco Pop?</title>
-          <row label="r1" alt="Never">Never</row>
-          <row label="r2" alt="over-12">Over 1 Year Ago</row>
-          <row label="r3" alt="1-6">1 year - 6 Months Ago</row>
-          <row label="r4" alt="less-6">Less than 6 Months Ago</row>
+      <block label="retailLocation" cond="Q2.r2">
+        <radio label="Q3b" optional="0">
+          <title>Which retail location did you visit?</title>
+          <row label="r1" alt="retail_a">Retail A</row>
+          <row label="r2" alt="retail_b">Retail B</row>
+          <row label="r3" alt="retail_c">Retail C</row>
+          <noanswer label="n1" alt="retail_none">None of the Above</noanswer>
+          <noanswer label="n2" alt="retail_unknown">I Don't Remember</noanswer>
         </radio>
         <suspend/>
+      </block>
 
-        <block label="NeverReDirect" cond="Q1.r1">
-          <radio label="E1" optional="0">
-            <title>Have you ever heard of Loco Pops before?</title>
-            <row label="r1" alt="0">No</row>
-            <row label="r2" alt="1">Yes</row>
+      <block label="neitherLocation" cond="Q2.r3 or Q3a.n1 or Q3b.n1">
+        <text label="Q3c" optional="0">
+          <title>What was the name of the location where you purchased your Loco Pop?</title>
+        </text>
+        <suspend/>
+      </block>
+
+      <radio label="Q4" optional="0">
+        <title>How would you rate your experience at this location?</title>
+        <row label="r1" alt="3">Very Good</row>
+        <row label="r2" alt="2">Good</row>
+        <row label="r3" alt="1">Somewhat Good</row>
+        <row label="r4" alt="0">Neither Good nor Bad</row>
+        <row label="r5" alt="-1">Somewhat Bad</row>
+        <row label="r6" alt="-2">Bad</row>
+        <row label="r7" alt="-3">Very Bad</row>
+      </radio>
+      <suspend/>
+
+      <radio label="Q5" optional="0">
+        <title>How satisfied were you with your Loco Pop?</title>
+        <row label="r1" alt="3">Very Satisfied</row>
+        <row label="r2" alt="2">Satisfied</row>
+        <row label="r3" alt="1">Somewhat Satisfied</row>
+        <row label="r4" alt="0">Neither Satisfied nor Dissatisfed</row>
+        <row label="r5" alt="-1">Somewhat Dissatisfied</row>
+        <row label="r6" alt="-2">Dissatisfied</row>
+        <row label="r7" alt="-3">Very Dissatisfied</row>
+      </radio>
+      <suspend/>
+
+      <block label="qualitySection" randomizeChildren="1" count="1">
+
+        <block label="testA" randomize="1">
+
+          <radio label="Q6" optional="0">
+            <title>What was the best quality of your Loco Pop?</title>
+            <row label="r1" alt="best_taste">Taste</row>
+            <row label="r2" alt="best_price">Price</row>
+            <row label="r3" alt="best_selection">Selection</row>
           </radio>
-          <finish />
           <suspend/>
-        </block>
 
-        <radio label="Q2" optional="0">
-          <title>Where did you purchase your last Loco Pop?</title>
-          <row label="r1">A Loco Pop Location</row>
-          <row label="r2">A Retail Outlet Selling Loco Pops</row>
-          <row label="r3">Neither</row>
-          <row label="r4">I Don't Remember</row>
-        </radio>
-        <suspend/>
-
-        <block label="LocoPop_Location" cond="Q2.r1">
-          <radio label="Q3a" optional="0">
-            <title>Which Loco Pop location did you visit?</title>
-            <row label="r1">Location A</row>
-            <row label="r2">Location B</row>
-            <row label="r3">Location C</row>
-            <noanswer label="n1">None of the Above</noanswer>
-            <noanswer label="n2" alt="unknown-locopop-location">I Don't Remember</noanswer>
+          <radio label="Q7" optional="0">
+            <title>What was the worst quality of your Loco Pop?</title>
+            <row label="r1" alt="worst_taste">Taste</row>
+            <row label="r2" alt="worst_price">Price</row>
+            <row label="r3" alt="worst_selection">Selection</row>
           </radio>
           <suspend/>
+
         </block>
 
-        <block label="RetailOutlet_Location" cond="Q2.r2">
-          <radio label="Q3b" optional="0">
-            <title>Which retail outlet did you visit?</title>
-            <row label="r1">Retail A</row>
-            <row label="r2">Retail B</row>
-            <row label="r3">Retail C</row>
-            <noanswer label="n1">None of the Above</noanswer>
-            <noanswer label="n2" alt="unknown-retail">I Don't Remember</noanswer>
-          </radio>
+        <block label="TestB" randomize="1">
+
+          <select label="Q6_7" minRanks="3" optional="0" shuffle="rows" unique="none,cols" uses="ranksort.4" optional="0">
+            <title>Please rank the qualities of your Loco Pop by “Best Quality"</title>
+            <choice label="ch1" alt="1st">Best Quality</choice>
+            <choice label="ch2" alt="2nd">2nd Best Quality</choice>
+            <choice label="ch3" alt="3rd">3rd Best Quality</choice>
+            <row label="r1" alt="taste">Taste</row>
+            <row label="r2" alt="price">Price</row>
+            <row label="r3" alt="selection">Selection</row>
+          </select>
           <suspend/>
-        </block>
-
-        <block label="Neither_Location" cond="Q2.r3 or Q3a.n1 or Q3b.n1">
-          <text label="Q3c" optional="0">
-            <title>Where did you purchase your Loco Pop?</title>
-          </text>
-          <suspend/>
-        </block>
-
-        <radio label="Q4" optional="0">
-          <title>How would you rate your experience at this store?</title>
-          <row label="r1" alt="3">Very Good</row>
-          <row label="r2" alt="2">Good</row>
-          <row label="r3" alt="1">Somewhat Good</row>
-          <row label="r4" alt="-1">Somewhat Bad</row>
-          <row label="r5" alt="-2">Bad</row>
-          <row label="r6" alt="-3">Very Bad</row>
-        </radio>
-        <suspend/>
-
-        <radio label="Q5" optional="0">
-          <title>How satisfied were you with your Loco Pop?</title>
-          <row label="r1" alt="3">Very Satisfied</row>
-          <row label="r2" alt="2">Satisfied</row>
-          <row label="r3" alt="1">Somewhat Satisfied</row>
-          <row label="r4" alt="-1">Somewhat Dissatisfied</row>
-          <row label="r5" alt="-2">Dissatisfied</row>
-          <row label="r6" alt="-3">Very Dissatisfied</row>
-        </radio>
-        <suspend/>
-
-        <block label="Quality_Section" randomizeChildren="1" count="1">
-
-          <block label="TestA" randomize="1">
-
-            <radio label="Q6" optional="0">
-              <title>What was the best quality of your Loco Pop?</title>
-              <row label="r1">Taste</row>
-              <row label="r2">Price</row>
-              <row label="r3">Selection</row>
-            </radio>
-            <suspend/>
-
-            <radio label="Q7" optional="0">
-              <title>What was the worst quality of your Loco Pop?</title>
-              <row label="r1">Taste</row>
-              <row label="r2">Price</row>
-              <row label="r3">Selection</row>
-            </radio>
-            <suspend/>
-
-          </block>
-
-          <block label="TestB" randomize="1">
-
-            <select label="Q6-7" minRanks="3" optional="0" shuffle="rows" unique="none,cols" uses="ranksort.4" optional="0">
-              <title>Please rank the qualities of your Loco Pop by “Best Quality"</title>
-              <choice label="ch1">Best Quality</choice>
-              <choice label="ch2">2nd Best Quality</choice>
-              <choice label="ch3">3rd Best Quality</choice>
-              <row label="r1">Taste</row>
-              <row label="r2">Price</row>
-              <row label="r3">Selection</row>
-              <noanswer label="n1">Don't Know</noanswer>
-              <noanswer label="n2">Prefer Not to Say</noanswer>
-            </select>
-            <suspend/>
-
-          </block>
 
         </block>
 
-        <radio label="Q8" optional="0">
-          <title>Would you purchase a Loco Pop again?</title>
-          <row label="r1" alt="yes">Yes</row>
-          <row label="r2" alt="diff store">Yes, at a different store</row>
-          <row label="r3" alt="maybe">Maybe</row>
-          <row label="r4" alt="no">No</row>
-        </radio>
-        <suspend/>
+      </block>
 
-        <textarea label="Q9a" cond="Q8.r4" optional="0" verify="len(1, 1000)">
-          <title>Why not?</title>
-          <comment>Please be as specific as possible</comment>
-        </textarea>
-        <suspend/>
+      <radio label="Q8" optional="0">
+        <title>Would you purchase a Loco Pop again?</title>
+        <row label="r1" alt="yes">Yes</row>
+        <row label="r2" alt="diff_store">Yes, at a different store</row>
+        <row label="r3" alt="maybe">Maybe</row>
+        <row label="r4" alt="no">No</row>
+      </radio>
+      <suspend/>
 
-        <textarea label="Q9b" cond="Q8.r2" optional="0" verify="len(1, 1000)">
-          <title>What didn’t you like about the store you visited?</title>
-          <comment>Please be as specific as possible</comment>
-        </textarea>
-        <suspend/>
+      <textarea label="Q9A" cond="Q8.r4" optional="0" verify="len(1, 1000)">
+        <title>Why not?</title>
+        <comment>Please be as specific as possible.</comment>
+      </textarea>
+      <suspend/>
 
-        <completed>It seems you have already entered this survey.</completed>
-        <exit cond="qualified"><b>Thanks again for completing the survey!<br/><br/>Your feedback and quick response to this survey are greatly appreciated.</b></exit>
-        <exit cond="terminated"><b>Thank you for your input!</b></exit>
-        <exit cond="overquota"><b>Thank you for your input!</b></exit>
+      <textarea label="Q9B" cond="Q8.r2" optional="0" verify="len(1, 1000)">
+        <title>What didn’t you like about the store you visited?</title>
+        <comment>Please be as specific as possible.</comment>
+      </textarea>
+      <suspend/>
 
-      </samplesource>
+      <completed>It seems you have already completed this survey.</completed>
+      <exit cond="qualified"><b>Thank you again for completing our survey!<br/><br/>Your feedback and quick response to this survey are greatly appreciated.</b></exit>
+      <exit cond="terminated"><b>Thank you for your input!</b></exit>
+      <exit cond="overquota"><b>Thank you for your input!</b></exit>
 
-    </samplesources>
+    </samplesource>
 
-  </survey>
+  </samplesources>
+
+</survey>
