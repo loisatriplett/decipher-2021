@@ -50,6 +50,8 @@
       </radio>
       <suspend/>
 
+      <quota label="quota_city" sheet="city_table" />
+
       <radio label="Q1" optional="0">
         <title>When was the last time you purchased a Loco Pop?</title>
         <row label="r1" alt="never">Never</row>
